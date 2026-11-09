@@ -63,10 +63,12 @@ def rmb_upper(amount):
         tail = ''
         if jiao:
             tail += _DIGITS[jiao] + '角'
-        elif yuan:
+        elif fen:
             tail += '零'
         if fen:
             tail += _DIGITS[fen] + '分'
+        else:
+            tail += '整'  # 到角为止要写「整」，如 386.50 → 叁佰捌拾陆元伍角整
 
     return f'{head}元{tail}'
 
