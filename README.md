@@ -10,6 +10,7 @@
 - **填写报销单**：自动填写金额、中文大写金额、附件张数等信息，签字栏保留空白。
 - **打印排版**：A4 纵向，默认每页 2 张发票；可调整张数。
 - **自定义模板**：内置通用 Word 模板，也可使用公司报销单模板。
+- **开箱即用**：首次运行自动安装所需依赖，无需手动配置环境。
 
 ## 安装
 
@@ -56,17 +57,23 @@ Word 首页为已填写的费用报销单，后续每页排放 2 张发票。打
 ## 命令行（可选）
 
 ```bash
-pip install python-docx pymupdf pillow pypdf
 python scripts/pipeline.py --src 发票.zip --fee "交通费" --summary "10 月市内打车"
 ```
 
 支持多个 `--src`，可传入 ZIP 或目录；通过 `--template` 指定公司模板，通过 `--per-page` 调整每页发票张数。
 
-Windows 环境可安装 `pywin32`，借助本机 Word 校验分页并导出 PDF。其他环境仍可生成 DOCX，但需人工检查分页，且不保证生成 PDF。
+依赖会在首次运行时自动安装（`python-docx`、`pymupdf`、`pillow`、`pypdf`，Windows 上另装 `pywin32`），无需手动 `pip install`。若网络受限导致安装失败，可提前手动装好：
+
+```bash
+pip install python-docx pymupdf pillow pypdf pywin32
+```
+
+Windows 环境装好 `pywin32` 后，会借助本机 Word 校验分页并导出 PDF。其他环境仍可生成 DOCX，但需人工检查分页，且不保证生成 PDF。
 
 ## 注意事项
 
 - 仅支持电子发票 PDF，不支持照片、截图；加密压缩包请先解压。
+- 首次运行需联网下载 Python 依赖（约 30 MB），装好后可离线使用。
 - 金额以发票数据为准，发现不一致时提示核对，不自动猜测。
 - 脚本在本机处理文件，不包含上传发票的功能；如使用云端 AI，数据处理方式以所用服务为准。
 

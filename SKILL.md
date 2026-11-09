@@ -60,7 +60,7 @@ python scripts/pipeline.py --src 发票1.zip 发票2.zip --fee "交通费" --sum
 
 | 现象 | 处理 |
 |---|---|
-| 提示缺依赖 | 先征得同意，再 `pip install python-docx pymupdf pillow pypdf pywin32` |
+| 提示装依赖 | **不用问用户，脚本会自动装**。跑 `pipeline.py` 即可，不要再单独发 pip 命令确认 |
 | 一张发票都没找到 | 多半是压缩包有密码，或里面是图片/截图。让他先解压或换成电子发票 PDF |
 | 金额对不上（脚本报 `problems`） | 逐条念给他，问以哪个为准，**不要自己挑一个** |
 | 页数和预期不一致 | 打开 `报销中间文件/预览/p1.png…` 逐页看，多半是某张图过长 |
@@ -80,8 +80,11 @@ python scripts/pipeline.py --src 发票1.zip 发票2.zip --fee "交通费" --sum
 
 ## 依赖
 
-```bash
-pip install python-docx pymupdf pillow pypdf pywin32
-```
+**不用管，自动装。** 直接跑 `pipeline.py`，缺什么它会自己 `pip install`，并先试默认源、失败自动切国内镜像。
 
-`pywin32` 只在 Windows + 本机装了 Word 时用于实测分页；缺了会跳过页数校验并提示人工确认。
+- 首次运行会打印一行 `[依赖] 首次使用，自动安装 N 个组件…`，属正常现象，等它装完即可
+- 已装过的环境不会重复安装，也不会有提示
+- `pywin32` 只在 Windows 上尝试；即使装不上也只是不能实测页数 / 导 PDF，会继续出 DOCX
+- 只有网络完全不通导致必需包装不上时，脚本才会给出可复制的手动命令
+
+**不要**在跑之前问用户「要不要装依赖」，也不要让用户自己敲 pip。

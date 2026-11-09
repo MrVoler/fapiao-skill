@@ -16,6 +16,7 @@ import xml.etree.ElementTree as ET
 from decimal import Decimal
 
 from _common import ensure_dir, load_json, money, save_json, table, warn
+from deps import ensure
 
 # 数电票 XML 字段候选名（不同开票渠道命名略有差异）
 FIELDS = {
@@ -73,6 +74,7 @@ def parse_pdf(path):
 
 
 def main():
+    ensure()
     ap = argparse.ArgumentParser(description='提取并核对发票金额')
     ap.add_argument('--work', required=True)
     args = ap.parse_args()

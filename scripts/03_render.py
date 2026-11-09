@@ -12,6 +12,7 @@ import argparse
 import os
 
 from _common import ensure_dir, load_json, save_json, table, warn
+from deps import ensure
 
 
 def trim(img, pad=8, threshold=12):
@@ -30,6 +31,7 @@ def trim(img, pad=8, threshold=12):
 
 
 def main():
+    ensure()
     ap = argparse.ArgumentParser(description='发票 PDF 转高清图并裁白边')
     ap.add_argument('--work', required=True)
     ap.add_argument('--dpi', type=int, default=300)

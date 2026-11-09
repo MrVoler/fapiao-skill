@@ -19,6 +19,7 @@ import datetime
 import os
 
 from _common import die, money, rmb_upper
+from deps import ensure
 
 # 金额分格表头（从右往左）
 UNIT_CHARS = {'分', '角', '元', '十', '百', '千', '万', '亿'}
@@ -61,6 +62,7 @@ def rewrite_cell(cell, text, bold=False, color=None, size=12):
 
 
 def main():
+    ensure()
     ap = argparse.ArgumentParser(description='填写费用报销单')
     ap.add_argument('--template', required=True, help='报销单模板 docx')
     ap.add_argument('--fee', required=True, help='费用名称（必须先和用户确认）')

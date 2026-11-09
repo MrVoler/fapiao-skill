@@ -26,25 +26,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_TPL = os.path.abspath(os.path.join(HERE, '..', 'assets', '费用报销单模板.docx'))
 
-DEPS = [
-    ('docx', 'python-docx'),
-    ('pymupdf', 'pymupdf'),
-    ('PIL', 'pillow'),
-]
-
-
-def check_deps():
-    missing = []
-    for mod, pkg in DEPS:
-        try:
-            __import__(mod)
-        except ImportError:
-            missing.append(pkg)
-    if missing:
-        print('[缺少依赖] 请先安装：', file=sys.stderr)
-        print(f'  {sys.executable} -m pip install ' + ' '.join(missing), file=sys.stderr)
-        sys.exit(2)
-
+from deps import ensure  # noqa: E402  同目录模块，需在 sys.path 就绪后导入
 
 def run(script, *args):
     cmd = [sys.executable, os.path.join(HERE, script)] + list(args)
@@ -74,7 +56,7 @@ def main():
     ap.add_argument('--dpi', type=int, default=300)
     args = ap.parse_args()
 
-    check_deps()
+    ensure()
 
     if not os.path.exists(args.template):
         sys.exit(f'[错误] 模板不存在: {args.template}')
@@ -125,7 +107,7 @@ def main():
     expect = 1 + math.ceil(int(bills) / args.per_page)
     print('\n' + '=' * 52)
     print(f'做好了：{out}')
-    print(f'{bills} 张发票，合计 ¥{total}，共 {expect} 页（第 1 页报销单，之后每页 2 张）')
+    print(f'{bills} 张发票，合计 ¥{total}，共 {expect} 页（第 1 页报销单，之后每页 {args.per_page} 张）')
     print(f'中间文件和预览图在：{work}')
     print('=' * 52)
 

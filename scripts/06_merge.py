@@ -15,6 +15,7 @@ import os
 import tempfile
 
 from _common import die
+from deps import ensure
 
 
 def rebind_images(dst_doc, src_doc, tbl_el, qn):
@@ -49,6 +50,7 @@ def rebind_images(dst_doc, src_doc, tbl_el, qn):
 
 
 def main():
+    ensure()
     ap = argparse.ArgumentParser(description='合并报销单与发票页')
     ap.add_argument('--form', required=True, help='填好的报销单（单联）')
     ap.add_argument('--invoice', required=True, help='发票排版文档')

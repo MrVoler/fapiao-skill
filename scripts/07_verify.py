@@ -17,6 +17,7 @@ import sys
 import tempfile
 
 from _common import die, table, warn
+from deps import ensure
 
 PS_TEMPLATE = r'''
 $ErrorActionPreference = 'Stop'
@@ -94,6 +95,7 @@ def word_pages_and_pdf(docx, pdf):
 
 
 def main():
+    ensure()
     ap = argparse.ArgumentParser(description='校验合成文档并导出 PDF')
     ap.add_argument('--docx', required=True)
     ap.add_argument('--per-page', type=int, default=2)

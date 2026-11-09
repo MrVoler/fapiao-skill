@@ -13,11 +13,13 @@ import math
 import os
 
 from _common import load_json
+from deps import ensure
 
 PAGE_W, PAGE_H = 210.0, 297.0
 
 
 def main():
+    ensure()
     ap = argparse.ArgumentParser(description='生成每页 2 张发票的打印文档')
     ap.add_argument('--manifest', required=True)
     ap.add_argument('--out', required=True)
