@@ -1,0 +1,35 @@
+# ---- 真实数据（含发票号、金额、销售方等个人信息，绝不入库）----
+work/
+work*/
+data/
+out/
+发票PDF/
+行程单PDF/
+结构化数据/
+图片/
+预览/
+*.zip
+
+# ---- 运行产物 ----
+*.pdf
+*.docx
+*.csv
+*.json
+*.png
+*.jpg
+
+# 仅放行 assets 里的空白模板与示意图
+!assets/**
+!assets/*.docx
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# ---- 系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
